@@ -1,0 +1,27 @@
+{
+  "name": "finance-core",
+  "version": "1.0.0",
+  "homepage": "https://github.com/zacharytamas/finance-core",
+  "authors": [
+    "Zachary Jones <zacharytamas@gmail.com>"
+  ],
+  "description": "A collection of financial formulas implemented as Polymer components for easy composition.",
+  "moduleType": [
+    "es6"
+  ],
+  "keywords": [
+    "web-components",
+    "polymer"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~1.0.5"
+  }
+}
