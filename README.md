@@ -3,9 +3,11 @@ A collection of financial formulas implemented as Polymer components for easy co
 
 ## Calculations
 
-- `fin-future-value`
-- `fin-present-value`
-- `fin-payment`
+- `fin-fv`
+- `fin-pv`
+- `fin-pmt`
+- `fin-rate`
+- `fin-nper`
 
 ## Utilities
 
@@ -16,7 +18,7 @@ A collection of financial formulas implemented as Polymer components for easy co
 ### Example usage
 
 ```html
-<fin-future-value period="5" present-value="1000" contribution="5000" rate="0.3" value="{{fv}}"></fin-future-value>
+<fin-fv period="5" present-value="1000" contribution="5000" rate="0.3" value="{{fv}}"></fin-fv>
 <fin-formatter type="currency" value="{{fv}}" formatted-value="{{fvFormatted}}"></fin-formatter>
     
 <div>
