@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
+
+    <link rel="import" href="../../paper-input/paper-input.html">
+    <link rel="import" href="../fin-fv.html">
+  </head>
+  <body>
+
+    <dom-module id="x-demo">
+      <style>
+        :host {
+          display: block;
+        }
+
+        .calculator {
+          max-width: 200px;
+        }
+      </style>
+      <template>
+
+        <fin-fv id="fv"
+          rate="{{rate}}"
+          nper="{{nper}}"
+          payment="{{payment}}"
+          present-value="{{presentValue}}"
+          type="0"
+          value="{{fvValue}}"></fin-fv>
+
+        <div class="calculator">
+          <h1>FV</h1>
+
+          <paper-input label="Rate" value="{{rate}}"></paper-input>
+          <paper-input label="Number of Periods" value="{{nper}}"></paper-input>
+          <paper-input label="Contributions per Period" value="{{payment}}"></paper-input>
+          <paper-input label="Present Value" value="{{presentValue}}"></paper-input>
+
+          <hr>
+
+          <paper-input label="Future Value" value="[[fvValue]]" readonly></paper-input>
+
+        </div>
+
+      </template>
+    </dom-module>
+
+    <script>
+      Polymer({
+        is: 'x-demo',
+        properties: {
+          rate: {
+            type: Number,
+            value: 0.05
+          },
+          nper: {
+            type: Number,
+            value: 15
+          },
+          payment: {
+            type: Number,
+            value: 5500
+          },
+          presentValue: {
+            type: Number,
+            value: 7000
+          }
+        }
+      });
+    </script>
+
+    <x-demo></x-demo>
+
+
+  </body>
+</html>

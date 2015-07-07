@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#~3.2.0",
-    "iron-component-page": "PolymerElements/iron-component-page#~1.0.5"
+    "iron-component-page": "PolymerElements/iron-component-page#~1.0.5",
+    "paper-input": "PolymerElements/paper-input#~1.0.5"
   }
 }

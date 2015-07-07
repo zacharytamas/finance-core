@@ -17,6 +17,7 @@ calculation changes.
 
 @group Financial
 @element fin-fv
+@demo demo/fin-fv.html
 -->
 <script>
   Polymer({
@@ -107,8 +108,8 @@ calculation changes.
       // If there is an interest rate to consider, calculate the effects
       // of compounding it over `nper` periods.
       } else {
-  			var left = -presentValue * Math.pow(1 + rate, nper);
-  			var right = payment * ((Math.pow((1 + rate), nper) - 1) / rate) * (1 + (rate * type));
+        var left = -presentValue * Math.pow(1 + rate, nper);
+        var right = payment * ((Math.pow((1 + rate), nper) - 1) / rate) * (1 + (rate * type));
         value = left - right;
       }
 
