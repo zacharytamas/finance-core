@@ -87,6 +87,32 @@ calculation changes.
         notify: true,
         value: NaN
       }
+    },
+
+    observers: [
+      "_calculate(rate, nper, payment, presentValue, type)"
+    ],
+
+    _calculate: function(rate, nper, payment, presentValue, type) {
+      var value;
+
+      // The formula for FV is:
+      // f = -p(1 + r)^n - m[((1 + r)^n - 1) / r](1 + rt)
+
+      // If the rate is zero, there is no compounding effect to
+      // calculate, just sum up the payments and add them to the current value.
+      if (rate == 0) {
+        value = -1 * (presentValue + (nper * payment));
+
+      // If there is an interest rate to consider, calculate the effects
+      // of compounding it over `nper` periods.
+      } else {
+  			var left = -presentValue * Math.pow(1 + rate, nper);
+  			var right = payment * ((Math.pow((1 + rate), nper) - 1) / rate) * (1 + (rate * type));
+        value = left - right;
+      }
+
+      this._setValue(value);
     }
 
   });

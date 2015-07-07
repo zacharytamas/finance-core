@@ -51,7 +51,57 @@
       });
 
       describe('Calculation results', function() {
-        // Tests for correctness here.
+
+        function generateTestCase(args) {
+          it('FV(' + args.slice(0, -1).join(", ") + ") = " + args[5].toFixed(3), function() {
+            el.rate = args[0];
+            el.nper = args[1];
+            el.payment = args[2];
+            el.presentValue = args[3];
+            el.type = args[4];
+
+            expect(el.value.toFixed(3))
+              .to.equal(args[5].toFixed(3));
+          });
+        }
+
+        describe('When `rate` is 0', function() {
+          var examples = [
+            [0, 15, 5500, 7000, 0, -89500.000],
+            [0, 15*12, 5500/12, 7000, 0, -89500.000],
+            // In the case of 0% interest it doesn't matter which `type` it is,
+            // so here we test that the opposite `type` yields the same answer.
+            [0, 15, 5500, 7000, 1, -89500.000],
+            [0, 15*12, 5500/12, 7000, 1, -89500.000]
+          ];
+          examples.map(generateTestCase);
+        });
+
+        describe('When `rate` is negative', function() {
+          var examples = [
+            [-.05, 15*12, 5500/12, 7000, 1, -8708.166]
+          ];
+          examples.map(generateTestCase);
+        });
+
+        describe('When `type` is 0', function() {
+
+          var examples = [
+            [0.05, 15, 5500, 7000, 0, -133234.597],
+            [0.05/12, 15*12, 5500/12, 7000, 0, -137303.360],
+            // Present Value as 0
+            [0.05, 15, 5500, 0, 0, -118682.100]
+          ];
+          examples.map(generateTestCase);
+        });
+
+        describe('When `type` is 1', function() {
+          var examples = [
+            [0.05, 15, 5500, 7000, 1, -139168.702],
+            [0.05/12, 15*12, 5500/12, 7000, 1, -137813.808]
+          ];
+          examples.map(generateTestCase);
+        });
       });
 
       describe('Calculation behavior', function() {
