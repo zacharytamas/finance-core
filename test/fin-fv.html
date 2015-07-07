@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../webcomponentsjs/webcomponents.min.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../fin-fv.html">
+</head>
+<body>
+
+  <script>
+    describe('<fin-fv>', function() {
+
+      var el;
+
+      beforeEach(function() {
+        el = document.createElement('fin-fv');
+      });
+
+      describe('Properties', function() {
+        it('should have a `rate` property that is a Number', function() {
+          expect(el.properties.rate).to.exist;
+          expect(el.properties.rate.type).to.equal(Number);
+        });
+
+        it('should have a `nper` property that is a Number', function() {
+          expect(el.properties.nper).to.exist;
+          expect(el.properties.nper.type).to.equal(Number);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

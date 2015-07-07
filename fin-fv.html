@@ -1,0 +1,22 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<script>
+  Polymer({
+    is: 'fin-fv',
+
+    properties: {
+      rate: {
+        type: Number
+      },
+      nper: {
+        type: Number
+      },
+      value: {
+        type: Number,
+        readOnly: true,
+        notify: true
+      }
+    }
+
+  });
+</script>
