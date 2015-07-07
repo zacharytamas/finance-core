@@ -27,6 +27,11 @@
           expect(el.properties.nper).to.exist;
           expect(el.properties.nper.type).to.equal(Number);
         });
+
+        it('should have a `payment` property that is a Number', function() {
+          expect(el.properties.payment).to.exist;
+          expect(el.properties.payment.type).to.equal(Number);
+        });
       });
     });
   </script>
