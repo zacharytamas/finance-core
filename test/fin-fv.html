@@ -32,6 +32,12 @@
           expect(el.properties.payment).to.exist;
           expect(el.properties.payment.type).to.equal(Number);
         });
+
+        it('should have a `present-value` property that is a Number and 0 by default', function() {
+          expect(el.properties.presentValue).to.exist;
+          expect(el.properties.presentValue.type).to.equal(Number);
+          expect(el.properties.presentValue.value).to.equal(0);
+        });
       });
     });
   </script>
