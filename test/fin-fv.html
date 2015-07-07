@@ -13,11 +13,14 @@
 
       var el;
 
-      beforeEach(function() {
+      function newEl() {
         el = document.createElement('fin-fv');
-      });
+      }
+
+      newEl();
 
       describe('Properties', function() {
+
         it('should have a `rate` property that is a Number', function() {
           expect(el.properties.rate).to.exist;
           expect(el.properties.rate.type).to.equal(Number);
@@ -100,8 +103,16 @@
       });
 
       describe('Calculation behavior', function() {
-        it('Should re-calculate whenever any property changes, emitting a change event');
-        it('Should not emit a change event if a property is set to the same value.')
+        var mutableProperties = ["rate", "nper", "payment", "presentValue", "type"];
+
+        mutableProperties.map(function(property) {
+          it("Should re-calculate if `" + property + "` changes", function() {
+            sinon.spy(el, '_calculate');
+            el[property] = 1000;
+            expect(el._calculate).to.have.been.called;
+            el._calculate.restore();
+          });
+        });
       });
     });
   </script>
