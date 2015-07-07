@@ -38,6 +38,12 @@
           expect(el.properties.presentValue.type).to.equal(Number);
           expect(el.properties.presentValue.value).to.equal(0);
         });
+
+        it('should have a `type` property that is a Number and 0 by default', function() {
+          expect(el.properties.type).to.exist;
+          expect(el.properties.type.type).to.equal(Number);
+          expect(el.properties.type.value).to.equal(0);
+        });
       });
     });
   </script>
