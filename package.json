@@ -1,0 +1,26 @@
+{
+  "name": "finance-core",
+  "version": "0.0.0",
+  "description": "A collection of financial formulas implemented as Polymer components for easy composition.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "formulajs": "^1.0.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zacharytamas/finance-core.git"
+  },
+  "author": "Zachary Jones <zacharytamas@gmail.com>, Adam Duren <adamduren@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zacharytamas/finance-core/issues"
+  },
+  "homepage": "https://github.com/zacharytamas/finance-core#readme"
+}
