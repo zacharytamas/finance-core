@@ -1,0 +1,110 @@
+<link rel="import" href="../polymer/polymer.html">
+<script src="./lib/formula.standalone.min.js"></script>
+
+
+<!--
+A headless element for calculating the payment per period for a fixed rate loan. Example:
+
+    <fin-pmt
+      rate="0.049"
+      nper="60"
+      principal="460.77"
+      final-balance="460.77"
+      value="{{payment}}"></fin-pmt>
+
+    <b>Payment Amount</b> <span>[[payment]]</span>
+
+The expected usage of this element is setting the properties described below
+and binding an element in your UI to the `value` property to be notified of
+calculation changes.
+
+@group Financial
+@element fin-pmt
+@demo demo/fin-pmt.html
+-->
+<script>
+  Polymer({
+    is: 'fin-pmt',
+
+    properties: {
+      /**
+       * The interest rate for the investment expressed as a
+       * Number from 0.0 to 1.0.
+       *
+       * @type number
+       * @required
+       */
+      rate: {
+        type: Number,
+      },
+      /**
+       * The number of payments for the annuity.
+       * @type number
+       * @required
+       */
+      nper: {
+        type: Number
+      },
+      /**
+       * The initial sum borrowed
+       * @type number
+       * @required
+       */
+      principal: {
+        type: Number
+      },
+      /**
+       * Optional. The cash balance you wish to attain at the end of the term.
+       * If this parameter is omitted, it assumes a final balance of 0.
+       *
+       * @type number
+       * @default 0
+       */
+      finalBalance: {
+        type: Number,
+        value: 0
+      },
+      /**
+       * Optional. It indicates when the payments are made. If the `type`
+       * property is omitted, it assumes a value of 0. `type` can be one of
+       * the following values:
+       *
+       *   | Value | Meaning |
+       *   |-------|---------|
+       *   | 0     | Payments are made at the end of the period. |
+       *   | 1     | Payments are made at the beginning of the period. |
+       *
+       * @type number
+       * @default 0
+       */
+      type: {
+        type: Number,
+        value: 0
+      },
+      /**
+       * The payment per period of the investment based on the values
+       * specified. Fully bindable.
+       */
+      value: {
+        type: Number,
+        readOnly: true,
+        notify: true,
+        value: NaN,
+        computed: "_calculate(rate, nper, principal, finalBalance, type)"
+      }
+    },
+
+    _calculate: function(rate, nper, principal, finalBalance, type) {
+      // Cast the values to numbers
+      rate = +rate;
+      nper = +nper;
+      principal = +principal;
+      finalBalance = +finalBalance;
+      type = +type;
+
+      // formulajs.PMT(rate, periods, present, future, type)
+      return formulajs.PMT(rate, nper, principal, finalBalance, type);
+    }
+
+  });
+</script>

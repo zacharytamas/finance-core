@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "homepage": "https://github.com/zacharytamas/finance-core",
   "authors": [
-    "Zachary Jones <zacharytamas@gmail.com>"
+    "Zachary Jones <zacharytamas@gmail.com>",
+    "Adam Duren <adamduren@gmail.com>"
   ],
   "description": "A collection of financial formulas implemented as Polymer components for easy composition.",
   "moduleType": [
@@ -22,7 +23,7 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~1.0.5"
+    "polymer": "Polymer/polymer#~1.1.3"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#~3.2.0",
