@@ -1,0 +1,102 @@
+<link rel="import" href="../polymer/polymer.html">
+<script src="./lib/formula.standalone.min.js"></script>
+
+<!--
+A headless element for calculating the rate on an annuity given its
+present value, number of periods left, and payment per period. Example:
+
+    <fin-rate
+      nper="60"
+      payment="460.77"
+      present-value="-15000"
+      future-value="0"
+      value="{{rate}}"></fin-rate>
+
+    <b>Rate</b> <span>[[rate]]</span>
+
+The expected usage of this element is setting the properties described below
+and binding an element in your UI to the `value` property to be notified of
+calculation changes.
+
+@group Financial
+@element fin-rate
+-->
+<script>
+  Polymer({
+    is: 'fin-rate',
+
+    properties: {
+      /**
+       * The number of payments for the annuity.
+       * @type number
+       * @required
+       */
+      nper: {
+        type: Number
+      },
+      /**
+       * The amount of the payment made each period.
+       * @type number
+       * @required
+       */
+      payment: {
+        type: Number
+      },
+      /**
+       * It is the present value of the payments. If this parameter
+       * is omitted, it assumes present value to be 0.
+       *
+       * @type number
+       * @required
+       */
+      presentValue: {
+        type: Number
+      },
+      /**
+       * Optional. It is the future value of the payments. If this parameter
+       * is omitted, it assumes future value to be 0.
+       *
+       * @type number
+       * @default 0
+       */
+      futureValue: {
+        type: Number,
+        value: 0
+      },
+      /**
+       * Optional. It indicates when the payments are due. If the `type`
+       * property is omitted, it assumes a value of 0. `type` can be one of
+       * the following values:
+       *
+       *   | Value | Meaning |
+       *   |-------|---------|
+       *   | 0     | Payments are due at the end of the period. |
+       *   | 1     | Payments are due at the beginning of the period. |
+       *
+       * @type number
+       * @default 0
+       */
+      type: {
+        type: Number,
+        value: 0
+      },
+      /**
+       * The resulting future value of the investment based on the values
+       * specified. Fully bindable.
+       */
+      value: {
+        type: Number,
+        readOnly: true,
+        notify: true,
+        value: NaN,
+        computed: "_calculate(nper, payment, presentValue, futureValue, type)"
+      }
+    },
+
+    _calculate: function(nper, payment, presentValue, futureValue, type) {
+      // RATE = function(periods, payment, present, future, type, guess)
+      return formulajs.RATE(nper, payment, presentValue, futureValue, type);
+    }
+
+  });
+</script>
