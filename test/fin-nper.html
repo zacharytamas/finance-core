@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../webcomponentsjs/webcomponents.min.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../fin-nper.html">
+</head>
+<body>
+
+  <script>
+    describe('<fin-nper>', function() {
+
+      var el;
+
+      function newEl() {
+        el = document.createElement('fin-nper');
+      }
+
+      function validateProperty(name, type, defaultValue) {
+        var message = 'should have a `' + name + '` property that is a ' + type.name;
+
+        if (defaultValue !== undefined) {
+          message += ' and ' + defaultValue.toString() + ' by default';
+        }
+
+        it(message, function() {
+          var prop = el.properties[name];
+
+          expect(prop).to.exist;
+          expect(prop.type).to.equal(type);
+
+          if (defaultValue !== undefined) {
+            expect(prop.value).to.equal(defaultValue);
+          }
+        });
+      }
+
+      function validateProperties(propsArray) {
+        propsArray.forEach(function (args) {
+          validateProperty.apply(null, args);
+        });
+      }
+
+      newEl();
+
+      describe('Properties', function() {
+        validateProperties([
+          ['rate', Number],
+          ['payment', Number],
+          ['presentValue', Number],
+          ['futureValue', Number, 0],
+          ['type', Number, 0],
+        ]);
+      });
+
+      describe('Calculation results', function() {
+        sinon.spy(formulajs, 'NPER');
+
+        it('Should call NPER with the correct arguments', function() {
+          el.rate = 1;
+          el.payment = 2;
+          el.presentValue = 3;
+          el.futureValue = 4;
+          el.type = 5;
+
+          expect(formulajs.NPER.lastCall.args).to.deep.equal([1, 2, 3, 4, 5]);
+          formulajs.NPER.restore()
+        });
+      });
+
+      describe('Calculation behavior', function() {
+        var mutableProperties = ["rate", "payment", "presentValue", "futureValue", "type"];
+
+        mutableProperties.map(function(property) {
+          it("Should re-calculate if `" + property + "` changes", function() {
+            sinon.spy(el, '_calculate');
+            el[property] = 1000;
+            expect(el._calculate).to.have.been.called;
+            el._calculate.restore();
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

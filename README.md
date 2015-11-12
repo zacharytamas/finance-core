@@ -8,9 +8,6 @@ A collection of financial Excel-style formulas implemented as Polymer components
 - `fin-pmt`
 - `fin-pv`
 - `fin-rate`
-
-## Upcoming Elements
-
 - `fin-nper`
 
 ## Utilities
