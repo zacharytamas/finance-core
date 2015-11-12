@@ -1,0 +1,101 @@
+<link rel="import" href="../polymer/polymer.html">
+<script src="./lib/formula.standalone.min.js"></script>
+
+<!--
+A headless element for calculating the present values of investments. Example:
+
+    <fin-pv
+      rate="0.049"
+      nper="60"
+      payment="460.77"
+      value="{{presentValue}}"></fin-pv>
+
+    <b>Present Value</b> <span>[[presentValue]]</span>
+
+The expected usage of this element is setting the properties described below
+and binding an element in your UI to the `value` property to be notified of
+calculation changes.
+
+@group Financial
+@element fin-pv
+@demo demo/fin-pv.html
+-->
+<script>
+  Polymer({
+    is: 'fin-pv',
+
+    properties: {
+      /**
+       * The interest rate for the investment expressed as a
+       * Number from 0.0 to 1.0.
+       *
+       * @type number
+       * @required
+       */
+      rate: {
+        type: Number
+      },
+      /**
+       * The number of payments for the annuity.
+       * @type number
+       * @required
+       */
+      nper: {
+        type: Number
+      },
+      /**
+       * The amount of the payment made each period.
+       * @type number
+       * @required
+       */
+      payment: {
+        type: Number
+      },
+      /**
+       * Optional. It is the future value of the payments. If this parameter
+       * is omitted, it assumes future value to be 0.
+       *
+       * @type number
+       * @default 0
+       */
+      futureValue: {
+        type: Number,
+        value: 0
+      },
+      /**
+       * Optional. It indicates when the payments are due. If the `type`
+       * property is omitted, it assumes a value of 0. `type` can be one of
+       * the following values:
+       *
+       *   | Value | Meaning |
+       *   |-------|---------|
+       *   | 0     | Payments are due at the end of the period. |
+       *   | 1     | Payments are due at the beginning of the period. |
+       *
+       * @type number
+       * @default 0
+       */
+      type: {
+        type: Number,
+        value: 0
+      },
+      /**
+       * The resulting present value of the investment based on the values
+       * specified. Fully bindable.
+       */
+      value: {
+        type: Number,
+        readOnly: true,
+        notify: true,
+        value: NaN,
+        computed: "_calculate(rate, nper, payment, futureValue, type)"
+      }
+    },
+
+    _calculate: function(rate, nper, payment, futureValue, type) {
+      // PV = function(rate, periods, payment, future, type)
+      return formulajs.PV(rate, nper, payment, futureValue, type);
+    }
+
+  });
+</script>
