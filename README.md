@@ -1,14 +1,15 @@
 # finance-core
-A collection of financial formulas implemented as Polymer components for easy composition.
+
+A collection of financial Excel-style formulas implemented as Polymer components for easy composition.
 
 ## Current Elements
 
-- `fin-fv` For calculating the future value of an investment based on an interest rate and a constant payment schedule.
+- `fin-fv`
+- `fin-pmt`
+- `fin-pv`
 
 ## Upcoming Elements
 
-- `fin-pv`
-- `fin-pmt`
 - `fin-rate`
 - `fin-nper`
 

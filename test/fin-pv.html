@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../webcomponentsjs/webcomponents.min.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../fin-pv.html">
+</head>
+<body>
+
+  <script>
+    describe('<fin-pv>', function() {
+
+      var el;
+
+      function newEl() {
+        el = document.createElement('fin-pv');
+      }
+
+      function validateProperty(name, type, defaultValue) {
+        var message = 'should have a `' + name + '` property that is a ' + type.name;
+
+        if (defaultValue !== undefined) {
+          message += ' and ' + defaultValue.toString() + ' by default';
+        }
+
+        it(message, function() {
+          var prop = el.properties[name];
+
+          expect(prop).to.exist;
+          expect(prop.type).to.equal(type);
+
+          if (defaultValue !== undefined) {
+            expect(prop.value).to.equal(defaultValue);
+          }
+        });
+      }
+
+      function validateProperties(propsArray) {
+        propsArray.forEach(function (args) {
+          validateProperty.apply(null, args);
+        });
+      }
+
+      newEl();
+
+      describe('Properties', function() {
+        validateProperties([
+          ['rate', Number],
+          ['nper', Number],
+          ['payment', Number],
+          ['futureValue', Number, 0],
+          ['type', Number, 0],
+        ]);
+      });
+
+      describe('Calculation results', function() {
+        sinon.spy(formulajs, 'PV');
+
+        it('Should call PV with the correct arguments', function() {
+          el.rate = 0;
+          el.nper = 1;
+          el.payment = 2;
+          el.futureValue = 3;
+          el.type = 4;
+
+          expect(formulajs.PV.lastCall.args).to.deep.equal([0, 1, 2, 3, 4]);
+          formulajs.PV.restore()
+        });
+      });
+
+      describe('Calculation behavior', function() {
+        var mutableProperties = ["rate", "nper", "payment", "futureValue", "type"];
+
+        mutableProperties.map(function(property) {
+          it("Should re-calculate if `" + property + "` changes", function() {
+            sinon.spy(el, '_calculate');
+            el[property] = 1000;
+            expect(el._calculate).to.have.been.called;
+            el._calculate.restore();
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
