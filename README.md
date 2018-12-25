@@ -1,5 +1,7 @@
 # finance-core
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/zacharytamas/finance-core.svg)](https://greenkeeper.io/)
+
 A collection of financial Excel-style formulas implemented as Polymer components for easy composition.
 
 ## Current Elements
